@@ -3,8 +3,8 @@ const mysql = require('./mysql');
 
 // constructor
 const Locker = function(locker) {
-    this.userCardId = locker.userCardId;
     this.encoding = locker.encoding;
+    this.userCardId = locker.userCardId;
 };
 
 Locker.create = (Locker) => {

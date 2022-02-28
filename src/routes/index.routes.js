@@ -23,7 +23,8 @@ module.exports = server => {
 
     // router.get('/searchPage/:phone', controller.searchLockerLottery);
 
-    // router.post('/lockerRegister', controller.registerLocker);
+    //create locker_register
+    router.post('/lockerRegister', controller.create);
 
     server.use('/api', router);
 };

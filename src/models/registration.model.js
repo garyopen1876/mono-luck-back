@@ -2,8 +2,8 @@ const mysql = require('./mysql');
 
 // constructor
 const Registration = function(registration) {
-    this.cardId = registration.cardId;
-    this.priority = registration.phoneNumber;
+    this.phoneNumber = registration.phoneNumber;
+    this.priority = registration.priority;
 };
 
 
