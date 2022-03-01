@@ -2,14 +2,10 @@
   "name": "mono-luck-back",
   "version": "1.0.0",
   "description": "mono-luck-back",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node server.js",
     "test": "npm test"
-  },
-  "repository": {
-    "type": "git",
-    "url": ""
   },
   "keywords": [],
   "author": "",
@@ -17,10 +13,13 @@
   "homepage": "",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.17.0",
+    "sequelize-cli": "^6.4.1"
   },
   "devDependencies": {
     "jest": "^27.5.1",
