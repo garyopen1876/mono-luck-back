@@ -10,7 +10,7 @@ server.use(express.static(__dirname + '/public'));
 const cors = require('cors');
 
 const corsOptions ={
-    origin: 'http://localhost:3000/',
+    origin: 'http://localhost:3000',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     optionSuccessStatus: 200
 }

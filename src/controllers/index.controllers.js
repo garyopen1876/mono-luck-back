@@ -3,19 +3,30 @@ const {Locker, Registration, User} = require('../models/index');
 
 // create a new locker register
 exports.create = (req, res) => {
+
     // if phoneNumber not found
-    if(!Registration.findPhoneNumber(phoneNumber)) {
-        res.status(400).send({
-            message: 'Phone number not found'
-        });
-    }
+    Registration.findByPhoneNumber(req.body.phone, (err, data) => {
+        if (err) {
+          if (err.kind === "not_found") {
+            res.status(400).send({
+              message: `Not found user with phone ${req.body.phone}.`
+            });
+          } else {
+            res.status(500).send({
+              message: "Error retrieving user with id " + req.body.phone
+            });
+          }
+        } else res.send(data);
+    });
+    
   
     // create a registration
     const registration = new Registration({
-        phoneNumber : req.body.phoneNumber,
-        priority : req.body.priority
+        phone : req.body.phone,
+        lockerNo : req.body.priority
     });
-  
+    
+    
     // save registration in the database
     Registration.create(registration, (err, data) => {
       if (err)
@@ -28,7 +39,6 @@ exports.create = (req, res) => {
 };
   
 registerLocker = (req, res) => {
-    const phoneNumber = req.body.phoneNumber;
     // if phoneNumber not found
     if(!db.findPhoneNumber(phoneNumber)) {
         res.status(404).json({ message: 'Phone number not found'})

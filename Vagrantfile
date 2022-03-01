@@ -23,10 +23,8 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   # NOTE: This will enable public access to the opened port
-
-  # port for mysql server
-  config.vm.network "forwarded_port", guest: 3306, host: 3306
-
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 80, host: 8080
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
@@ -57,7 +55,7 @@ Vagrant.configure("2") do |config|
   #
   #   # Customize the amount of memory on the VM:
     vb.memory = "4096"
-	  vb.cpus = "4"
+	vb.cpus = "4"
   end
   #
   # View the documentation for the provider you are using for more
@@ -69,7 +67,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
    # Installing MySQL
    sudo apt-get -y install mysql-server mysql-client
-   # MySQL init & setting
+   # MySQL Setting
    sudo mysql -u root -e "
    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
    
@@ -77,31 +75,31 @@ Vagrant.configure("2") do |config|
    
    use mono; 
    
-   create table USER(
-   userId int NOT NULL AUTO_INCREMENT,
-   userName varchar(40) NOT NULL,
-   userCardId varchar(10) NOT NULL UNIQUE,
-   phone varchar(15) NOT NULL UNIQUE,
-   PRIMARY KEY (userId)
+   create table USERS(
+	id int NOT NULL AUTO_INCREMENT,
+	name varchar(40) NOT NULL,
+	cardId varchar(10) NOT NULL UNIQUE,
+	phoneNumber varchar(15) NOT NULL UNIQUE,
+	PRIMARY KEY (id)
    );
    
-   create table REGISTRATION(
-   registerId int NOT NULL AUTO_INCREMENT,
-   phone varchar(15) NOT NULL,
-   lockerNo varchar(10),
-   PRIMARY KEY (registerId),
-   FOREIGN KEY(phone) REFERENCES USER (phone)
+   create table REGISTRATIONS(
+   id int NOT NULL AUTO_INCREMENT,
+   phoneNumber varchar(15) NOT NULL,
+   priority varchar(10),
+   PRIMARY KEY (id),
+   FOREIGN KEY(phoneNumber) REFERENCES USER (phoneNumber)
    );
    
-   create table LUCKER(
-   luckerId int NOT NULL AUTO_INCREMENT,
-   luckerEncoding varchar(20) NOT NULL,
-   userCardId varchar(10),
-   PRIMARY KEY (luckerId),
-   FOREIGN KEY(userCardId) REFERENCES USER (userCardId)
+   create table LOCKERS(
+   id int NOT NULL AUTO_INCREMENT,
+   lockerEncoding varchar(20) NOT NULL,
+   cardId varchar(10),
+   PRIMARY KEY (id),
+   FOREIGN KEY(cardId) REFERENCES USER (cardId)
    );
    
-   INSERT INTO USER (userName, userCardId, phone)
+   INSERT INTO USERS (name, cardId, phoneNumber)
    VALUES('王小明','0192836475','0911111111'),
    ('John Cena','1829384756','0922222222'),  
    ('Neil Patrick Harris','6152635142','0933333333'),  
